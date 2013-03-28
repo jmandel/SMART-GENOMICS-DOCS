@@ -1,0 +1,335 @@
+
+
+<xml>
+<Sequence>
+	<text>
+		<status value="generated"/>
+		<div xmlns="http://www.w3.org/1999/xhtml">
+			<p>DNA Sequence at chr11:150-21850 for patient 123</p>
+		</div>
+	</text>
+	<contained>
+		<type value="Patient"/>
+		<url value="../patient/123"/>
+		<display value="John Doe"/>
+	</contained>
+	<identifier>
+		<use value="official"/>
+		<label value="ID for sequence"/>
+		<system value="http://genomics.smartplatformgs.org/terms"/>
+		<id value="213"/>
+		<period>
+ 			<start value="2013-03-16"/>
+		</period>
+ 		<assigner>
+			<display value="SMART Genomics"/>
+		</assigner>
+	</identifier>
+	<patient>
+		<type value="Patient"/>
+		<url value="../patient/123"/>
+		<display value="John Doe"/>
+	</patient>	
+	<isMapped value="true"/>
+	<type value="DNA"/>
+	<coordinate>
+		<chromosome value="11"/>
+		<startPosition value="150"/>
+		<endPosition value="21850"/>
+	</coordinate>
+	<read value="AGGTCGACG...ATCGG"/>
+	<quality value="10"/>
+	<sourceTissue>
+		<coding>
+			<system value="http://sig.uw.edu/fma"/>
+      			<code value="Skin_of_buccal_part_of_mouth"/>
+    		</coding>
+		<text value="skin of buccal part of mouth"/>
+	</sourceTissue>
+</Sequence>
+
+
+<DNASequence>
+	<text>
+		<status value="generated"/>
+		<div xmlns="http://www.w3.org/1999/xhtml">
+			<p>DNA sequence at chr17:134-214357 for patient 123</p>
+		</div>
+	</text>
+	<contained>
+		<type value="Patient"/>
+		<url value="../patient/123"/>
+		<display value="John Doe"/>
+	</contained>
+	<contained>
+		<type value="Sequence"/>
+		<url value="../sequence/231"/>
+	</contained>
+	<contained>
+		<type value="Gene"/>
+		<url value="../gene/chr17_124_214357"/>
+		<display value="BRCA1"/>
+	</contained>
+	<identifier>
+		<use value="official"/>
+		<label value="Coordinate for DNA sequence"/>
+		<system value="http://genomics.smartplatformgs.org/terms"/>
+		<id value="chr17_134_214357"/>
+		<period>
+ 			<start value="2013-03-16"/>
+		</period>
+ 		<assigner>
+			<display value="SMART Genomics"/>
+		</assigner>
+	</identifier>
+	<patient>
+		<type value="Patient"/>
+		<url value="../patient/123"/>
+	</patient>
+	<sequence>
+		<type value="Sequence"/>
+		<url value="../sequence/231"/>
+	</sequence>
+	<relatedGene>
+		<type value="Gene"/>
+		<url value="../gene/478"/>
+		<display value="BRCA1"/>
+	</relatedGene>	
+</DNASequence>
+<RNASequence>
+	<text>
+		<status value="generated"/>
+		<div xmlns="http://www.w3.org/1999/xhtml">
+			<p>RNA seuqence transcribed from region chr12:12456-214357 for patient 123</p>
+		</div>
+	</text>
+	<contained>
+		<type value="Patient"/>
+		<url value="../patient/123"/>
+		<display value="John Doe"/>
+	</contained>
+	<contained>
+		<type value="Sequence"/>
+		<url value="../sequence/231"/>
+	</contained>
+	<contained>
+		<type value="Gene"/>
+		<url value="../gene/chr12_12456_214357"/>
+		<display value="GBA"/>
+	</contained>
+	<identifier>
+		<use value="official"/>
+		<label value="Coordinate of transcriped region for the RNASequence"/>
+		<system value="http://genomics.smartplatformgs.org/terms"/>
+		<id value="chr12_12456_214357"/>
+		<period>
+ 			<start value="2013-03-16"/>
+		</period>
+ 		<assigner>
+			<display value="SMART Genomics"/>
+		</assigner>
+	</identifier>
+	<patient>
+		<type value="Patient"/>
+		<url value="../patient/123"/>
+	</patient>
+	<sequence>
+		<type value="Sequence"/>
+		<url value="../sequence/231"/>
+	</sequence>
+	<relatedGene>
+		<type value="Gene"/>
+		<url value="../gene/478"/>
+		<display value="GBA"/>
+	</relatedGene>	
+</RNASequence>
+<AminoAcidSequence>
+	<text>
+		<status value="generated"/>
+		<div xmlns="http://www.w3.org/1999/xhtml">
+			<p>Amino acid seqeunce stranslated from region chr11:150-23450 for patient 123</p>
+		</div>
+	</text>
+	<contained>
+		<type value="Patient"/>
+		<url value="../patient/123"/>
+		<display value="John Doe"/>
+	</contained>
+	<contained>
+		<type value="Sequence"/>
+		<url value="../sequence/256"/>
+	</contained>
+	<contained>
+		<type value="Gene"/>
+		<url value="../gene/chr11_150_23450"/>
+		<display value="HBB"/>
+	</contained>
+	<identifier>
+		<use value="official"/>
+		<label value="Coordinate of transcriped region for the RNATranscript"/>
+		<system value="http://genomics.smartplatformgs.org/terms"/>
+		<id value="chr11_150_23450"/>
+		<period>
+ 			<start value="2013-03-16"/>
+		</period>
+ 		<assigner>
+			<display value="SMART Genomics"/>
+		</assigner>
+	</identifier>
+	<patient>
+		<type value="Patient"/>
+		<url value="../patient/123"/>
+	</patient>
+	<sequence>
+		<type value="Sequence"/>
+		<url value="../sequence/231"/>
+	</sequence>
+	<relatedGene>
+		<type value="Gene"/>
+		<url value="../gene/478"/>
+		<display value="HBB"/>
+	</relatedGene>		
+	<relatedTrait>
+		<hasTrait value="true"/>
+		<ontology>
+			<coding>
+				<system value="http://purl.bioportal.org/ontologies/SNOMEDCT" />
+      				<code value="35434009"/>
+    			</coding>
+			<text value="Sickle cell-hemoglobin C disease"/>
+		</ontology>
+	</relatedTrait>
+</AminoAcidSequence>
+<Gene>
+	<text>
+		<status value="generated"/>
+		<div xmlns="http://www.w3.org/1999/xhtml">
+			<p>Gene from region chr11:150~23450 for patient 123</p>
+		</div>
+	</text>
+	<contained>
+		<type value="Patient"/>
+		<url value="../patient/123"/>
+		<display value="John Doe"/>
+	</contained>
+	<contained>
+		<type value="DNASequence"/>
+		<url value="../sequence/chr11:150~23450"/>
+	</contained>
+	<identifier>
+		<use value="official"/>
+		<label value="Coordinate of the gene"/>
+		<system value="http://genomics.smartplatformgs.org/terms"/>
+		<id value="chr11_150_23450"/>
+		<period>
+ 			<start value="2013-03-16"/>
+		</period>
+ 		<assigner>
+			<display value="SMART Genomics"/>
+		</assigner>
+	</identifier>
+	<patient>
+		<type value="Patient"/>
+		<url value="../patient/123"/>
+	</patient>
+	<sequence>
+		<type value="DNASequence"/>
+		<url value="../sequence/chr11_150_23450"/>
+	</sequence>
+	<phenotype>
+		<hasTrait value="true"/>
+		<ontology>
+			<coding>
+				<system value="http://purl.bioportal.org/ontologies/SNOMEDCT" />
+      				<code value="35434009"/>
+    			</coding>
+			<text value="Sickle cell-hemoglobin C disease"/>
+		</ontology>
+	</phenotype>	
+</Gene>
+<Variant>
+	<text>
+		<status value="generated"/>
+		<div xmlns="http://www.w3.org/1999/xhtml">
+			<h>Variant</h>
+			<p>DNA sequence at region chr20:14000-14321 compare to sequence at region chr20:12000-12321</p>
+		</div>
+	</text>
+	<contained>
+		<type value="Patient"/>
+		<url value="../patient/456"/>
+		<display value="John Doe"/>
+	</contained>
+	<contained>
+		<type value="DNASequence"/>
+		<url value="../DNASequence/chr20:14000-14321"/>
+	</contained>
+	<contained>
+		<type value="DNASequence"/>
+		<url value="../DNASequence/chr20:12000-12321"/>
+	</contained>
+	<patient>
+		<type value="Patient"/>
+		<url value="../patient/456"/>
+	</patient>
+	<type value="SNP"/>
+	<reference>
+		<startPosition value="29"/>
+		<variable value="A"/>
+		<sequence>
+			<type value="DNASequence"/>
+			<url value="../DNASequence/chr20:14000-14321"/>
+		</sequence>
+	</reference>
+	<alternatives value="G T"/>
+	<genotype>
+		<startPosition value="100"/>
+		<variable value="G"/>
+		<sequence>
+			<type value="DNASequence"/>
+			<url value="../DNASequence/chr20:12000-12321"/>
+		</sequence>
+	</genotype>
+	<extraInfoList value="DP"/>
+	<extraInfo>
+		<DP value="56"/>
+	</extraInfo>
+</Variant>
+<Alignment>
+	<text>
+		<status value="generated"/>
+		<div xmlns="http://www.w3.org/1999/xhtml">
+			<p>Alignment of sequence123(http://genomics.smartplatforms.org/records/456/alignments/123) against sequence234(http://genomics.smartplatforms.org/records/456/alignments/234)</p>
+		</div>
+	</text>
+	<contained>
+		<type value="Patient"/>
+		<url value="../patient/456"/>
+		<display value="John Doe"/>
+	</contained>
+	<contained>
+		<type value="Sequence"/>
+		<url value="../sequence/123"/>
+	</contained>
+	<contained>
+		<type value="Sequence"/>
+		<url value="../sequence/234"/>
+	</contained>
+	<patient>
+		<type value="Patient"/>
+		<url value="../patient/456"/>
+	</patient>
+	<query>
+		<type value="Sequence"/>
+		<url value="../sequence/123"/>
+	</query>
+	<reference>
+		<type value="Sequence"/>
+		<url value="../sequence/234"/>
+	</reference>
+	<fileType value="SAM"/>
+	<rawFile value="http://genomics.smartplatforms.org/file/alignments/sam/1"/>
+	<score value="0.5"/>
+	<type value="global"/>
+</Alignment>
+</xml>

@@ -1,0 +1,1885 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>SMART Genomics Data Model</title>
+    
+    <meta name="author" content="SMART Platforms">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/twitter-2.0/css/pygments.css" rel="stylesheet">
+    <link href="/assets/themes/twitter-2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter-2.0/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter-2.0/css/style.css" rel="stylesheet">
+  </head>
+  <body>
+   <div class="container">
+      <div class="content">
+        
+
+<section id="jekyll-page">
+  <div class="row">
+
+    <div class="span4">
+      <a href="/">
+        <img id='smart_top_logo' src="/images/smart.png"/>
+      </a>
+      
+        <div id="left_nav">
+
+    <li class="nav-header">Reference</li>
+
+    <li><a href="/reference/data_model">Data Model</a></li>
+    <li><a href="/reference/rest_api">REST API</a></li>
+ 
+  </ul>
+</div>
+
+      
+    </div>
+
+    <div class="span8" id="jekyll-page-content">
+      <div class="page-header">
+        <h1>SMART Genomics Data Model <small></small></h1>
+      </div>
+
+      <div class='format_tabs_top'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">Show examples in</li>
+    <li class="rdf_xml_li active"><a href="#rdf_xml" data-toggle="tab" data-target='.rdf_xml'>XML</a></li>
+    <li class="json_ld_li"><a href="#json_ld" data-toggle="tab" data-target='.json_ld'>JSON</a></li>
+  </ul>
+</div>
+
+<div id='toc'></div>
+
+<h1>Genomics Data Types</h1>
+
+<div class="simple_box">
+Each Genomics data type can have an optional element called <code>partOf</code>. The function of <code>partOf</code> is opposite to that of <code>contained</code> in general FHIR resources; it tells what resources are using it. As shown below, the format of <code>partOf</code> is similar to that of <conde>contained</code>.
+    <div>
+<div class="highlight"><pre><code class="xml"><span class="nt">&lt;partOf&gt;</span>
+    <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;[code]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Type of resource--&gt;</span>
+    <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;[uri]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Link to the resource--&gt;</span>
+<span class="nt">&lt;/partOf&gt;</span>
+    
+</code></pre></div>
+</div>
+
+<p></div></p>
+
+<h2 id='Sequence'><code>Sequence</code></h2>
+
+<p><li>A Sequence contains following information:</li>
+1. Type of the sequence(DNA, RNA, or amino acid sequence)<br>
+2. Coordinate of the region in the genome that the sequence matches to<br>
+3. Read of the sequence<br>
+4. Quality of the sequencing<br>
+5. Source tissue from which the sequence is extracted<br><br></p>
+
+<div id='Sequence_example'>
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">Resource Profile:</li>
+  </ul>
+</div>
+
+<div class='profile'>
+<div class="highlight"><pre><code class="xml"><span class="nt">&lt;Sequence&gt;</span>
+    <span class="nt">&lt;partOf&gt;</span><span class="c">&lt;!--0..* Resource User of this resource--&gt;</span><span class="nt">&lt;/partOf&gt;</span>
+    <span class="nt">&lt;identifier&gt;</span><span class="c">&lt;!--1..1 ID for sequence--&gt;</span><span class="nt">&lt;/identifier&gt;</span>
+    <span class="nt">&lt;patient&gt;</span><span class="c">&lt;!--1..1 Resource(patient) Owner of this sequence--&gt;</span><span class="nt">&lt;/patient&gt;</span>
+    <span class="nt">&lt;isMapped</span> <span class="na">value=</span><span class="s">&quot;[boolean]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Tells whether this sequence is mapped--&gt;</span>
+    <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;[code]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Type of this sequence, one of DNA, RNA, or amino acid sequence--&gt;</span>
+    <span class="nt">&lt;coordinate&gt;</span><span class="c">&lt;!--0..1 Coordinate of genome that matched to this sequence--&gt;</span>
+        <span class="nt">&lt;chromosome</span> <span class="na">value=</span><span class="s">&quot;[code]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Chromosome of this coordiante--&gt;</span>
+        <span class="nt">&lt;startPosition</span> <span class="na">value=</span><span class="s">&quot;[integer]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Start position of this coordinate--&gt;</span>
+        <span class="nt">&lt;endPosition</span> <span class="na">value=</span><span class="s">&quot;[integer]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 End position of this coordinate--&gt;</span>
+    <span class="nt">&lt;/coordinate&gt;</span>
+    <span class="nt">&lt;read</span> <span class="na">value=</span><span class="s">&quot;[string]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 read of this sequence(e.g. AGGTCGACG...ATCGG)--&gt;</span>
+    <span class="nt">&lt;quality</span> <span class="na">value=</span><span class="s">&quot;[integer]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--0..1 Phred score of this sequence (if it&#39;s a DNA sequence)--&gt;</span>
+    <span class="nt">&lt;sourceTissue&gt;</span><span class="c">&lt;!--1..1 CodeableConcept Tissue from which this sequence is extracted--&gt;</span><span class="nt">&lt;/sourceTissue&gt;</span>
+<span class="nt">&lt;/Sequence&gt;</span>
+</code></pre></div>
+</div>
+
+<p><br></p>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">SHOW EXAMPLE IN:</li>
+    <li class="active"><a href="" data-target="#Sequence_example > div.rdf_xml" data-toggle="tab">XML</a></li>
+    <li class="">      <a href="" data-target="#Sequence_example > div.json_ld" data-toggle="tab">JSON</a></li>
+  </ul>
+</div>
+
+<div class='rdf_xml active'>
+<div class="highlight"><pre><code class="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;Sequence&gt;</span>
+    <span class="nt">&lt;text&gt;</span>
+        <span class="nt">&lt;status</span> <span class="na">value=</span><span class="s">&quot;generated&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1999/xhtml&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;p&gt;</span>DNA Sequence at chr11:150-21850 for patient 123<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/text&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Patient&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../patient/123&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;John Doe&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;identifier&gt;</span>
+        <span class="nt">&lt;use</span> <span class="na">value=</span><span class="s">&quot;official&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">value=</span><span class="s">&quot;ID for sequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;system</span> <span class="na">value=</span><span class="s">&quot;http://genomics.smartplatformgs.org/terms&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;id</span> <span class="na">value=</span><span class="s">&quot;213&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;period&gt;</span>
+            <span class="nt">&lt;start</span> <span class="na">value=</span><span class="s">&quot;2013-03-16&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/period&gt;</span>
+        <span class="nt">&lt;assigner&gt;</span>
+            <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;SMART Genomics&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/assigner&gt;</span>
+    <span class="nt">&lt;/identifier&gt;</span>
+    <span class="nt">&lt;patient&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Patient&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../patient/123&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;John Doe&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/patient&gt;</span>    
+    <span class="nt">&lt;isMapped</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;DNA&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;coorinate&gt;</span>
+        <span class="nt">&lt;chromosome</span> <span class="na">value=</span><span class="s">&quot;11&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;startPosition</span> <span class="na">value=</span><span class="s">&quot;150&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;endPosition</span> <span class="na">value=</span><span class="s">&quot;21850&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/coordinate&gt;</span>
+    <span class="nt">&lt;read</span> <span class="na">value=</span><span class="s">&quot;AGGTCGACG...ATCGG&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;quality</span> <span class="na">value=</span><span class="s">&quot;10&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;sourceTissue&gt;</span>
+        <span class="nt">&lt;coding&gt;</span>
+            <span class="nt">&lt;system</span> <span class="na">value=</span><span class="s">&quot;http://sig.uw.edu/fma&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;code</span> <span class="na">value=</span><span class="s">&quot;Skin_of_buccal_part_of_mouth&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/coding&gt;</span>
+        <span class="nt">&lt;text</span> <span class="na">value=</span><span class="s">&quot;skin of buccal part of mouth&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/sourceTissue&gt;</span>
+<span class="nt">&lt;/Sequence&gt;</span>
+</code></pre></div>
+</div>
+ 
+
+<div class='json_ld'>
+<div class="highlight"><pre><code class="javascript">   <span class="p">{</span>
+        <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;status&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;generated&quot;</span>
+            <span class="p">},</span>
+        <span class="s2">&quot;div&quot;</span> <span class="o">:</span> <span class="s2">&quot;&lt;div xmlns=&#39;http://www.w3.org/1999/xhtml&#39;&gt;&lt;p&gt;DNA Sequence at chr11:150-21850 for patient 123&lt;/p&gt;&lt;/div&gt;&quot;</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;contained&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../patient/123&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Patient&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;John Doe&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;isMapped&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;sourceTissue&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;skin of buccal part of mouth&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;coding&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Skin_of_buccal_part_of_mouth&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;system&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;http://sig.uw.edu/fma&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;patient&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../patient/123&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Patient&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;John Doe&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;quality&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;10&quot;</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;read&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;AGGTCGACG...ATCGG&quot;</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;coordinate&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;startPosition&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;150&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;endPosition&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;21850&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;chromosome&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;11&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;identifier&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;use&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;official&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;assigner&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;SMART Genomics&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;period&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;2013-03-16&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;system&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;http://genomics.smartplatformgs.org/terms&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;ID for sequence&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;213&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;DNA&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+</div>
+
+<p></div></p>
+
+<h2 id='DNASequence'><code>DNASequence</code></h2>
+
+<p><li>DNASequence is a resource derived from Sequence, and contains 1) the basic info of the sequence 2) the gene that the sequence relates to(if any)</li><br>
+<div id='DNASequence_example'></p>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">Resource Profile:</li>
+  </ul>
+</div>
+
+<div class='resource_profile active'>
+<div class="highlight"><pre><code class="xml"><span class="nt">&lt;DNASequence&gt;</span>
+    <span class="nt">&lt;partOf&gt;</span><span class="c">&lt;!--0..* Resource User of this resource--&gt;</span><span class="nt">&lt;/partOf&gt;</span>
+    <span class="nt">&lt;identifier&gt;</span><span class="c">&lt;!--1..1 Identifier Coordinate ID for DNAsequence--&gt;</span><span class="nt">&lt;/identifier&gt;</span>
+    <span class="nt">&lt;patient&gt;</span><span class="c">&lt;!--1..1 Resource(patient) Owner of this DNASequence--&gt;</span><span class="nt">&lt;/patient&gt;</span>
+    <span class="nt">&lt;sequence&gt;</span><span class="c">&lt;!--1..1 Resource(sequence) Details about this DNASequence--&gt;</span><span class="nt">&lt;/sequence&gt;</span>
+    <span class="nt">&lt;relatedGene&gt;</span><span class="c">&lt;!--0..1 Resource(gene) Gene that this DNASequence relates to--&gt;</span><span class="nt">&lt;/relatedGene&gt;</span>
+<span class="nt">&lt;/DNASequence&gt;</span>
+</code></pre></div>
+</div>
+
+<p><br></p>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">SHOW EXAMPLE IN:</li>
+    <li class="active"><a href="" data-target="#DNASequence_example > div.rdf_xml" data-toggle="tab">XML</a></li>
+    <li class="">      <a href="" data-target="#DNASequence_example > div.json_ld" data-toggle="tab">JSON</a></li>
+  </ul>
+</div>
+
+<div class='rdf_xml active'>
+<div class="highlight"><pre><code class="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;DNASequence&gt;</span>
+    <span class="nt">&lt;text&gt;</span>
+        <span class="nt">&lt;status</span> <span class="na">value=</span><span class="s">&quot;generated&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1999/xhtml&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;p&gt;</span>DNA sequence at chr17:134-214357 for patient 123<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/text&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Patient&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../patient/123&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;John Doe&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Sequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../sequence/231&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Gene&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../gene/chr17_124_214357&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;BRCA1&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;identifier&gt;</span>
+        <span class="nt">&lt;use</span> <span class="na">value=</span><span class="s">&quot;official&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">value=</span><span class="s">&quot;Coordinate for DNA sequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;system</span> <span class="na">value=</span><span class="s">&quot;http://genomics.smartplatformgs.org/terms&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;id</span> <span class="na">value=</span><span class="s">&quot;chr17_134_214357&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;period&gt;</span>
+            <span class="nt">&lt;start</span> <span class="na">value=</span><span class="s">&quot;2013-03-16&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/period&gt;</span>
+        <span class="nt">&lt;assigner&gt;</span>
+            <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;SMART Genomics&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/assigner&gt;</span>
+    <span class="nt">&lt;/identifier&gt;</span>
+    <span class="nt">&lt;patient&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Patient&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../patient/123&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/patient&gt;</span>
+    <span class="nt">&lt;sequence&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Sequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../sequence/231&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/sequence&gt;</span>
+    <span class="nt">&lt;relatedGene&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Gene&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../gene/478&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;BRCA1&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/relatedGene&gt;</span>    
+<span class="nt">&lt;/DNASequence&gt;</span>
+</code></pre></div>
+</div>
+
+<div class='json_ld'>
+<div class="highlight"><pre><code class="javascript">    <span class="p">{</span>
+        <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;status&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;generated&quot;</span>
+            <span class="p">}</span>
+    <span class="s2">&quot;div&quot;</span> <span class="o">:</span> <span class="s2">&quot;&lt;div xmlns=&#39;http://www.w3.org/1999/xhtml&#39;&gt;&lt;p&gt;DNA sequence at chr17:134-214357 for patient 123&lt;/p&gt;&lt;/div&gt;&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;contained&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../patient/123&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Patient&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;John Doe&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="p">{</span>
+                <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../sequence/231&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Sequence&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="p">{</span>
+                <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../gene/chr17_124_214357&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Gene&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;BRCA1&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">],</span> 
+        <span class="s2">&quot;patient&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../patient/123&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Patient&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;sequence&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../sequence/231&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Sequence&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>  
+        <span class="s2">&quot;relatedGene&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../gene/478&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Gene&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;BRCA1&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;identifier&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;use&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;official&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;assigner&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;SMART Genomics&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;period&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;2013-03-16&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;system&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;http://genomics.smartplatformgs.org/terms&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Coordinate for DNA sequence&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;chr17_134_214357&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+</div>
+
+<p></div></p>
+
+<h2 id='RNASequence'><code>RNASequence</code></h2>
+
+<p><li>RNASequence is a resource derived from Sequence,and contains 1) the basic info of the sequence 2) the gene that the sequence relates to(if any)</li>
+<br>
+<div id='RNASequence_example'></p>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">Resource Profile:</li>
+  </ul>
+</div>
+
+<div class='resource_profile active'>
+<div class="highlight"><pre><code class="xml"><span class="nt">&lt;RNASequence&gt;</span>
+    <span class="nt">&lt;partOf&gt;</span><span class="c">&lt;!--0..* Resource User of this resource--&gt;</span><span class="nt">&lt;/partOf&gt;</span>
+    <span class="nt">&lt;identifier&gt;</span><span class="c">&lt;!--1..1 Coordinate ID for mapped sequence or ID for unmapped--&gt;</span><span class="nt">&lt;/identifier&gt;</span>
+    <span class="nt">&lt;patient&gt;</span><span class="c">&lt;!--1..1 Resource(patient) Owner of this RNASequence--&gt;</span><span class="nt">&lt;/patient&gt;</span>
+    <span class="nt">&lt;sequence&gt;</span><span class="c">&lt;!--1..1 Resource(sequence) Detail about this RNASequence--&gt;</span><span class="nt">&lt;/sequence&gt;</span>
+    <span class="nt">&lt;relatedGene&gt;</span><span class="c">&lt;!--0..1 Resource(gene) Gene that this RNASequence transcribed from--&gt;</span><span class="nt">&lt;/relatedGene&gt;</span>
+<span class="nt">&lt;/RNASequence&gt;</span>
+</code></pre></div>
+</div>
+
+<p><br></p>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">SHOW EXAMPLE IN:</li>
+    <li class="active"><a href="" data-target="#RNASequence_example > div.rdf_xml" data-toggle="tab">XML</a></li>
+    <li class="">      <a href="" data-target="#RNASequence_example > div.json_ld" data-toggle="tab">JSON</a></li>
+  </ul>
+</div>
+
+<div class='rdf_xml active'>
+<div class="highlight"><pre><code class="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;RNASequence&gt;</span>
+    <span class="nt">&lt;text&gt;</span>
+        <span class="nt">&lt;status</span> <span class="na">value=</span><span class="s">&quot;generated&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1999/xhtml&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;p&gt;</span>RNA seuqence transcribed from region chr12:12456-214357 for patient 123<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/text&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Patient&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../patient/123&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;John Doe&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Sequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../sequence/231&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Gene&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../gene/chr12_12456_214357&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;GBA&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;identifier&gt;</span>
+        <span class="nt">&lt;use</span> <span class="na">value=</span><span class="s">&quot;official&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">value=</span><span class="s">&quot;Coordinate of transcriped region for the RNASequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;system</span> <span class="na">value=</span><span class="s">&quot;http://genomics.smartplatformgs.org/terms&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;id</span> <span class="na">value=</span><span class="s">&quot;chr12_12456_214357&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;period&gt;</span>
+            <span class="nt">&lt;start</span> <span class="na">value=</span><span class="s">&quot;2013-03-16&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/period&gt;</span>
+        <span class="nt">&lt;assigner&gt;</span>
+            <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;SMART Genomics&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/assigner&gt;</span>
+    <span class="nt">&lt;/identifier&gt;</span>
+    <span class="nt">&lt;patient&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Patient&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../patient/123&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/patient&gt;</span>
+    <span class="nt">&lt;sequence&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Sequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../sequence/231&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/sequence&gt;</span>
+    <span class="nt">&lt;relatedGene&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Gene&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../gene/478&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;GBA&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/relatedGene&gt;</span>    
+<span class="nt">&lt;/RNASequence&gt;</span>
+</code></pre></div>
+</div>
+
+<div class='json_ld'>
+<div class="highlight"><pre><code class="javascript">    <span class="p">{</span>
+        <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;status&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;generated&quot;</span>
+            <span class="p">},</span>
+        <span class="s2">&quot;div&quot;</span> <span class="o">:</span> <span class="s2">&quot;&lt;div xmlns=&#39;http://www.w3.org/1999/xhtml&#39;&gt;&lt;p&gt;RNA seuqence transcribed from region chr12:12456-214357 for patient 123&lt;/p&gt;&lt;/div&gt;&quot;</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;contained&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../patient/123&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Patient&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;John Doe&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="p">{</span>
+                <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../sequence/231&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Sequence&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="p">{</span>
+                <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../gene/chr12_12456_214357&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Gene&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;GBA&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">],</span> 
+        <span class="s2">&quot;patient&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../patient/123&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Patient&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;sequence&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../sequence/231&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Sequence&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;relatedGene&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../gene/478&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Gene&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;GBA&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;identifier&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;use&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;official&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;assigner&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;SMART Genomics&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;period&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;2013-03-16&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;system&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;http://genomics.smartplatformgs.org/terms&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Coordinate of transcriped region for the RNASequence&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;chr12_12456_214357&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+</div>
+
+<p></div></p>
+
+<h2 id='AminoAcidSequence'><code>AminoAcidSequence</code></h2>
+
+<p><li>AminoAcidSequence is a resource derived from Sequence, and contains following information:</li>
+1. Basic info of the sequence<br>
+2. Gene that the sequence relates to<br>
+3. Trait resulted from having the sequence<br><br>
+<div id='AminoAcidSequence_example'></p>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">Resource Profile:</li>
+  </ul>
+</div>
+
+<div class='resource_profile active'>
+<div class="highlight"><pre><code class="xml"><span class="nt">&lt;AminoAcidSequence&gt;</span>
+    <span class="nt">&lt;partOf&gt;</span><span class="c">&lt;!--0..* Resource User of this resource--&gt;</span><span class="nt">&lt;/partOf&gt;</span>
+    <span class="nt">&lt;identifier&gt;</span><span class="c">&lt;!--1..1 Identifier Coordinate ID for AminoAcidSeuqence--&gt;</span><span class="nt">&lt;/identifier&gt;</span>
+    <span class="nt">&lt;patient&gt;</span><span class="c">&lt;!--1..1 Resource(patient) Owner of this AminoAcidSequence--&gt;</span><span class="nt">&lt;/patient&gt;</span>
+    <span class="nt">&lt;sequence&gt;</span><span class="c">&lt;!--1..1 Resource(sequence) Amino acid read of this sequence--&gt;</span><span class="nt">&lt;/sequence&gt;</span>
+    <span class="nt">&lt;relatedGene&gt;</span><span class="c">&lt;!--0..1 Resource(gene) Gene that this sequence translated from--&gt;</span><span class="nt">&lt;/relatedGene&gt;</span>
+    <span class="nt">&lt;relatedTrait&gt;</span><span class="c">&lt;!--0..1 CodeableConcept Trait resulted from having this protein--&gt;</span>
+        <span class="nt">&lt;hasTrait</span> <span class="na">value=</span><span class="s">&quot;[boolean]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Effect that this sequence has for the trait(positive/negative)--&gt;</span>
+        <span class="nt">&lt;trait&gt;</span><span class="c">&lt;!--1..1 CodeableConcept Ontology for this trait--&gt;</span><span class="nt">&lt;/trait&gt;</span>
+    <span class="nt">&lt;/relatedTrait&gt;</span>
+<span class="nt">&lt;/AminoAcidSequence&gt;</span>
+</code></pre></div>
+</div>
+
+<p><br></p>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">SHOW EXAMPLE IN:</li>
+    <li class="active"><a href="" data-target="#AminoAcidSequence_example > div.rdf_xml" data-toggle="tab">XML</a></li>
+    <li class="">      <a href="" data-target="#AminoAcidSequence_example > div.json_ld" data-toggle="tab">JSON</a></li>
+  </ul>
+</div>
+
+<div class='rdf_xml active'>
+<div class="highlight"><pre><code class="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;AminoAcidSequence&gt;</span>
+    <span class="nt">&lt;text&gt;</span>
+        <span class="nt">&lt;status</span> <span class="na">value=</span><span class="s">&quot;generated&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1999/xhtml&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;p&gt;</span>Amino acid seqeunce stranslated from region chr11:150-23450 for patient 123<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/text&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Patient&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../patient/123&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;John Doe&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Sequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../sequence/256&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Gene&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../gene/chr11_150_23450&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;HBB&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;identifier&gt;</span>
+        <span class="nt">&lt;use</span> <span class="na">value=</span><span class="s">&quot;official&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">value=</span><span class="s">&quot;Coordinate of transcriped region for the RNASequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;system</span> <span class="na">value=</span><span class="s">&quot;http://genomics.smartplatformgs.org/terms&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;id</span> <span class="na">value=</span><span class="s">&quot;chr11_150_23450&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;period&gt;</span>
+            <span class="nt">&lt;start</span> <span class="na">value=</span><span class="s">&quot;2013-03-16&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/period&gt;</span>
+        <span class="nt">&lt;assigner&gt;</span>
+            <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;SMART Genomics&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/assigner&gt;</span>
+    <span class="nt">&lt;/identifier&gt;</span>
+    <span class="nt">&lt;patient&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Patient&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../patient/123&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/patient&gt;</span>
+    <span class="nt">&lt;sequence&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Sequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../sequence/231&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/sequence&gt;</span>
+    <span class="nt">&lt;relatedGene&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Gene&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../gene/478&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;HBB&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/relatedGene&gt;</span>        
+    <span class="nt">&lt;relatedTrait&gt;</span>
+        <span class="nt">&lt;hasTrait</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;ontology&gt;</span>
+            <span class="nt">&lt;coding&gt;</span>
+                <span class="nt">&lt;system</span> <span class="na">value=</span><span class="s">&quot;http://purl.bioportal.org/ontologies/SNOMEDCT&quot;</span> <span class="nt">/&gt;</span>
+                    <span class="nt">&lt;code</span> <span class="na">value=</span><span class="s">&quot;35434009&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/coding&gt;</span>
+            <span class="nt">&lt;text</span> <span class="na">value=</span><span class="s">&quot;Sickle cell-hemoglobin C disease&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/ontology&gt;</span>
+    <span class="nt">&lt;/relatedTrait&gt;</span>
+<span class="nt">&lt;/AminoAcidSequence&gt;</span>
+</code></pre></div>
+</div>
+
+<div class='json_ld'>
+<div class="highlight"><pre><code class="javascript">    <span class="p">{</span>
+        <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;status&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;generated&quot;</span>
+            <span class="p">},</span>
+        <span class="s2">&quot;div&quot;</span> <span class="o">:</span> <span class="s2">&quot;&lt;div xmlns=&#39;http://www.w3.org/1999/xhtml&#39;&gt;&lt;p&gt;Amino acid seqeunce stranslated from region chr11:150-23450 for patient 123&lt;/p&gt;&lt;/div&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;contained&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../patient/123&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Patient&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;John Doe&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="p">{</span>
+                <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../sequence/256&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Sequence&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="p">{</span>
+                <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../gene/chr11_150_23450&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Gene&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;HBB&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">],</span> 
+        <span class="s2">&quot;patient&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../patient/123&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Patient&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;sequence&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../sequence/231&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Sequence&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>  
+        <span class="s2">&quot;relatedTrait&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;ontology&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Sickle cell-hemoglobin C disease&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;coding&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;35434009&quot;</span>
+                    <span class="p">},</span> 
+                    <span class="s2">&quot;system&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;http://purl.bioportal.org/ontologies/SNOMEDCT&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;hasTrait&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;relatedGene&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../gene/478&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Gene&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;HBB&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;identifier&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;use&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;official&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;assigner&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;SMART Genomics&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;period&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;2013-03-16&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;system&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;http://genomics.smartplatformgs.org/terms&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Coordinate of transcriped region for the RNATranscript&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;chr11_150_23450&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+</div>
+
+<p></div></p>
+
+<h2 id='Gene'><code>Gene</code></h2>
+
+<p><li>A Gene contains following information:</li>
+1. Genotype of the patient<br>
+2. Phenotype of the patient<br>
+3. Sequences that relates to the gene<br><br>
+<div id='Gene_example'></p>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">Resource Profile:</li>
+  </ul>
+</div>
+
+<div class='resource_profile active'>
+<div class="highlight"><pre><code class="xml"><span class="nt">&lt;Gene&gt;</span>
+    <span class="nt">&lt;partOf&gt;</span><span class="c">&lt;!--0..* Resource User of this resource--&gt;</span><span class="nt">&lt;/partOf&gt;</span>
+    <span class="nt">&lt;identifier&gt;</span><span class="c">&lt;!--Identifier Coordinate ID for gene--&gt;</span><span class="nt">&lt;/identifier&gt;</span>
+    <span class="nt">&lt;patient&gt;</span><span class="c">&lt;!--1..1 Resource(patient) Owner of this gene--&gt;</span><span class="nt">&lt;/patient&gt;</span>
+    <span class="nt">&lt;genotype&gt;</span><span class="c">&lt;!--0..1 Resource(DNASequence) DNA sequence of this gene--&gt;</span><span class="nt">&lt;/genotype&gt;</span>
+    <span class="nt">&lt;phenotype&gt;</span><span class="c">&lt;!--0..1 CodeableConcept Phenotype resulted from having this protein--&gt;</span>
+        <span class="nt">&lt;hasTrait</span> <span class="na">value=</span><span class="s">&quot;[boolean]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Effect of this gene on a trait(positive/negative)--&gt;</span>
+        <span class="nt">&lt;trait&gt;</span><span class="c">&lt;!--1..1 CodeableConcept Ontology for this trait--&gt;</span><span class="nt">&lt;/trait&gt;</span>
+    <span class="nt">&lt;/phenotype&gt;</span>
+    <span class="nt">&lt;relatedSequence&gt;</span><span class="c">&lt;!--0..* Resource(Sequence) Sequence that this gene contains--&gt;</span><span class="nt">&lt;/relatedSequence&gt;</span>
+<span class="nt">&lt;/Gene&gt;</span>
+</code></pre></div>
+</div>
+
+<p><br></p>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">SHOW EXAMPLE IN:</li>
+    <li class="active"><a href="" data-target="#Gene_example > div.rdf_xml" data-toggle="tab">XML</a></li>
+    <li class="">      <a href="" data-target="#Gene_example > div.json_ld" data-toggle="tab">JSON</a></li>
+  </ul>
+</div>
+
+<div class='rdf_xml active'>
+<div class="highlight"><pre><code class="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;Gene&gt;</span>
+    <span class="nt">&lt;text&gt;</span>
+        <span class="nt">&lt;status</span> <span class="na">value=</span><span class="s">&quot;generated&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1999/xhtml&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;p&gt;</span>Gene from region chr11:150~23450 for patient 123<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/text&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Patient&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../patient/123&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;John Doe&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;DNASequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../sequence/chr11:150~23450&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;identifier&gt;</span>
+        <span class="nt">&lt;use</span> <span class="na">value=</span><span class="s">&quot;official&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">value=</span><span class="s">&quot;Coordinate of the gene&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;system</span> <span class="na">value=</span><span class="s">&quot;http://genomics.smartplatformgs.org/terms&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;id</span> <span class="na">value=</span><span class="s">&quot;chr11_150_23450&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;period&gt;</span>
+            <span class="nt">&lt;start</span> <span class="na">value=</span><span class="s">&quot;2013-03-16&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/period&gt;</span>
+        <span class="nt">&lt;assigner&gt;</span>
+            <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;SMART Genomics&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/assigner&gt;</span>
+    <span class="nt">&lt;/identifier&gt;</span>
+    <span class="nt">&lt;patient&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Patient&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../patient/123&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/patient&gt;</span>
+    <span class="nt">&lt;sequence&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;DNASequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../sequence/chr11_150_23450&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/sequence&gt;</span>
+    <span class="nt">&lt;phenotype&gt;</span>
+        <span class="nt">&lt;hasTrait</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;ontology&gt;</span>
+            <span class="nt">&lt;coding&gt;</span>
+                <span class="nt">&lt;system</span> <span class="na">value=</span><span class="s">&quot;http://purl.bioportal.org/ontologies/SNOMEDCT&quot;</span> <span class="nt">/&gt;</span>
+                    <span class="nt">&lt;code</span> <span class="na">value=</span><span class="s">&quot;35434009&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/coding&gt;</span>
+            <span class="nt">&lt;text</span> <span class="na">value=</span><span class="s">&quot;Sickle cell-hemoglobin C disease&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/ontology&gt;</span>
+    <span class="nt">&lt;/phenotype&gt;</span>  
+<span class="nt">&lt;/Gene&gt;</span>
+</code></pre></div>
+</div>
+
+<div class='json_ld'>
+<div class="highlight"><pre><code class="javascript">    <span class="p">{</span>
+        <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;status&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;generated&quot;</span>
+            <span class="p">},</span>
+        <span class="s2">&quot;div&quot;</span> <span class="o">:</span> <span class="s2">&quot;&lt;div xmlns=&#39;http://www.w3.org/1999/xhtml&#39;&gt;&lt;p&gt;Gene from region chr11:150~23450 for patient 123&lt;/p&gt;&lt;/div&gt;&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;contained&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../patient/123&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Patient&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;John Doe&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="p">{</span>
+                <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../sequence/chr11:150~23450&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;DNASequence&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">],</span>  
+        <span class="s2">&quot;patient&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../patient/123&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Patient&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;sequence&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../sequence/chr11_150_23450&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;DNASequence&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;phenotype&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;ontology&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Sickle cell-hemoglobin C disease&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;coding&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;35434009&quot;</span>
+                    <span class="p">},</span> 
+                    <span class="s2">&quot;system&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;http://purl.bioportal.org/ontologies/SNOMEDCT&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;hasTrait&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;true&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;identifier&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;use&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;official&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;assigner&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;SMART Genomics&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;period&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;2013-03-16&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;system&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;http://genomics.smartplatformgs.org/terms&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Coordinate of the gene&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;chr11_150_23450&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+</div>
+
+<p></div></p>
+
+<h2 id='Variant'><code>Variant</code></h2>
+
+<p><li>A Variant contains basic data in a VCF file, including:</li>
+1. Basic info about the reference sequence<br>
+2. Basic info about the sample sequence<br>
+3. Optional information in VCF format<br>
+4. URI linked to the raw VCF file that contains the variant<br><br>
+<div id='Variant_example'></p>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">Resource Profile:</li>
+  </ul>
+</div>
+
+<div class='profile active'>
+<div class="highlight"><pre><code class="xml"><span class="nt">&lt;Variant&gt;</span>
+    <span class="nt">&lt;partOf&gt;</span><span class="c">&lt;!--0..* Resource User of this resource--&gt;</span><span class="nt">&lt;/partOf&gt;</span>
+    <span class="nt">&lt;patient&gt;</span><span class="c">&lt;!--1..1 Resource(Patient) Owner of this Variant--&gt;</span><span class="nt">&lt;/patient&gt;</span>
+    <span class="nt">&lt;rawFile</span> <span class="na">value=</span><span class="s">&quot;[uri]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Link of raw VCF file for this Variant--&gt;</span>
+    <span class="nt">&lt;reference&gt;</span><span class="c">&lt;!--1..1 Resource(Sequence) Reference sequence--&gt;</span><span class="nt">&lt;/reference&gt;</span>
+    <span class="nt">&lt;ALT</span> <span class="na">value=</span><span class="s">&quot;[string]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..* Alternative genotype--&gt;</span>
+    <span class="nt">&lt;FILTER&gt;</span><span class="c">&lt;!--1..* Same function as that in a VCF file--&gt;</span>
+        <span class="nt">&lt;name</span> <span class="na">value=</span><span class="s">&quot;[string]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Value of the FILTER--&gt;</span>
+        <span class="nt">&lt;definition</span> <span class="na">value=</span><span class="s">&quot;[string]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--0..1 Definition from the header section of VCF file--&gt;</span>
+    <span class="nt">&lt;/FILTER&gt;</span>
+    <span class="nt">&lt;attribute&gt;</span><span class="c">&lt;!--1..* Attribute of the reference sequence; an element that combines both the header, INFO, and values that correspond to INFO in VCF file --&gt;</span>
+        <span class="nt">&lt;name</span> <span class="na">value=</span><span class="s">&quot;[code]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Name of the attribute, corresponds to a single slot in INFO of VCF file--&gt;</span>
+        <span class="nt">&lt;description</span> <span class="na">value=</span><span class="s">&quot;[string]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Definition of the attribute, corresponds to the definition in header section--&gt;</span>
+        <span class="nt">&lt;value</span> <span class="na">value=</span><span class="s">&quot;[string]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Value of the attribute--&gt;</span>
+    <span class="nt">&lt;attribute&gt;</span>
+    <span class="nt">&lt;sample&gt;</span><span class="c">&lt;!--1..* Sample sequence of the alignment--&gt;</span>
+        <span class="nt">&lt;genotype&gt;</span><span class="c">&lt;!--1..1 Resource(Sequence) Sample sequence--&gt;</span><span class="nt">&lt;/genotype&gt;</span>
+        <span class="nt">&lt;attribute&gt;</span><span class="c">&lt;!--1..* Attribute of the sample sequence, an element that combines both the header, FORMAT, and values that correspond to Fromat in VCF file--&gt;</span>
+            <span class="nt">&lt;name</span> <span class="na">value=</span><span class="s">&quot;[code]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Name of the attribute, corresponds to a single slot in FORMAT of VCF file--&gt;</span>
+            <span class="nt">&lt;description</span> <span class="na">value=</span><span class="s">&quot;[string]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Definition of the attribute, corresponds to the definition in header section--&gt;</span>
+            <span class="nt">&lt;value</span> <span class="na">value=</span><span class="s">&quot;[string]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Value of the attribute--&gt;</span>
+        <span class="nt">&lt;attribute&gt;</span>   
+    <span class="nt">&lt;/sample&gt;</span>
+<span class="nt">&lt;/Variant&gt;</span>
+</code></pre></div>
+</div>
+
+<p><br></p>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">SHOW EXAMPLE IN:</li>
+    <li class="active"><a href="" data-target="#Variant_example > div.rdf_xml" data-toggle="tab">XML</a></li>
+    <li class="">      <a href="" data-target="#Variant_example > div.json_ld" data-toggle="tab">JSON</a></li>
+  </ul>
+</div>
+
+<div class='rdf_xml active'>
+<div class="highlight"><pre><code class="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;Variant&gt;</span>
+    <span class="nt">&lt;text&gt;</span>
+        <span class="nt">&lt;status</span> <span class="na">value=</span><span class="s">&quot;generated&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1999/xhtml&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h&gt;</span>Variant<span class="nt">&lt;/h&gt;</span>
+            <span class="nt">&lt;p&gt;</span>DNA sequence at region chr20:14000-14321 compare to sequence at region chr20:12000-12321<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/text&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Patient&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../patient/456&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;John Doe&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;DNASequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../DNASequence/chr20_14000_14321&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;DNASequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../DNASequence/chr20_12000_12321&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;patient&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Patient&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../patient/456&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/patient&gt;</span>
+    <span class="nt">&lt;rawFile</span> <span class="na">value=</span><span class="s">&quot;http://genomics.smartplatforms.org/record/123/vcf/1&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;reference&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;DNASequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../DNASequence/chr20_14000_14321&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/reference&gt;</span>
+    <span class="nt">&lt;ALT</span> <span class="na">value=</span><span class="s">&quot;G&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;FILTER&gt;</span>
+        <span class="nt">&lt;name</span> <span class="na">value=</span><span class="s">&quot;PASS&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/FILTER&gt;</span>
+    <span class="nt">&lt;attribute&gt;</span>
+        <span class="nt">&lt;name</span> <span class="na">value=</span><span class="s">&quot;DP&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;definition</span> <span class="na">value=</span><span class="s">&quot;Read depth&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;value</span> <span class="na">value=</span><span class="s">&quot;9&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/attribute&gt;</span>
+    <span class="nt">&lt;sample&gt;</span>
+        <span class="nt">&lt;genotype&gt;</span>
+            <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;DNASequence&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../DNASequence/chr20:12000-12321&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/genotype&gt;</span>
+        <span class="nt">&lt;attribute&gt;</span>
+            <span class="nt">&lt;name</span> <span class="na">value=</span><span class="s">&quot;DP&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;definition</span> <span class="na">value=</span><span class="s">&quot;Read depth&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;value</span> <span class="na">value=</span><span class="s">&quot;13&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/attribute&gt;</span>
+    <span class="nt">&lt;/sample&gt;</span>
+<span class="nt">&lt;/Variant&gt;</span>
+</code></pre></div>
+</div>
+
+<div class='json_ld'>
+<div class="highlight"><pre><code class="javascript"><span class="p">{</span>
+    <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;status&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;generated&quot;</span>
+        <span class="p">},</span>
+    <span class="s2">&quot;div&quot;</span> <span class="o">:</span> <span class="s2">&quot;&lt;div xmlns=&#39;http://www.w3.org/1999/xhtml&#39;&gt;&lt;h&gt;Variant&lt;/h&gt;&lt;p&gt;DNA sequence at region chr20:14000-14321 compare to sequence at region chr20:12000-12321&lt;/p&gt;&lt;/div&gt;&quot;</span>
+    <span class="p">}</span>
+    <span class="s2">&quot;contained&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../patient/456&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Patient&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;John Doe&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../DNASequence/chr20_14000_14321&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;DNASequence&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../DNASequence/chr20_12000_12321&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;DNASequence&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;attribute&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;definition&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Read depth&quot;</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;DP&quot;</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;9&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span> 
+    <span class="s2">&quot;sample&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;attribute&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;definition&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Read depth&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;DP&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;13&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;genotype&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../DNASequence/chr20:12000-12321&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;DNASequence&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span> 
+    <span class="s2">&quot;patient&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../patient/456&quot;</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Patient&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span> 
+    <span class="s2">&quot;reference&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../DNASequence/chr20_14000_14321&quot;</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;DNASequence&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span> 
+    <span class="s2">&quot;ALT&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;G&quot;</span>
+    <span class="p">},</span> 
+    <span class="s2">&quot;FILTER&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;PASS&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>  
+    <span class="s2">&quot;rawFile&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;http://genomics.smartplatforms.org/record/123/vcf/1&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+
+<p></div></p>
+
+<h2 id='Alignment'><code>Alignment</code></h2>
+
+<p><li>An Alignment contains basic information in a blast/SAM file, including:</li>
+1. Basic info about the sequence being queried<br>
+2. Basic info about the reference sequence<br>
+3. Type of raw file of this Alignment(blast/SAM)<br>
+4. Link of the raw file<br>
+5. Type of alignment(local/global/short-read)<br>
+6. Score of the alignment<br><br>
+<div id='Alignment_example'></p>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">Resource Profile:</li>
+  </ul>
+</div>
+
+<div class='profile active'>
+<div class="highlight"><pre><code class="xml"><span class="nt">&lt;Alignment&gt;</span>
+    <span class="nt">&lt;partOf&gt;</span><span class="c">&lt;!--0..* Resource User of this resource--&gt;</span><span class="nt">&lt;/partOf&gt;</span>
+    <span class="nt">&lt;patient&gt;</span><span class="c">&lt;!--1..1 Resource(Patient)Owner of the subject Sequence--&gt;</span><span class="nt">&lt;/patient&gt;</span>
+    <span class="nt">&lt;query&gt;</span><span class="c">&lt;!--1..1 Resource(Sequence) Queried(subject) sequence of alignment--&gt;</span><span class="nt">&lt;/query&gt;</span>
+    <span class="nt">&lt;reference&gt;</span><span class="c">&lt;!--1..1 Resource(Sequence) Reference sequence of alignment--&gt;</span><span class="nt">&lt;/reference&gt;</span>
+    <span class="nt">&lt;fileType</span> <span class="na">value=</span><span class="s">&quot;[code]&quot;</span><span class="nt">&gt;</span><span class="c">&lt;!--1..1 Format of raw file of this alignment [blast/SAM]--&gt;</span>
+    <span class="nt">&lt;rawFile</span> <span class="na">value=</span><span class="s">&quot;[uri]&quot;</span><span class="nt">&gt;</span><span class="c">&lt;!--1..1 Link of raw file of this alignment--&gt;</span>
+    <span class="nt">&lt;score</span> <span class="na">value=</span><span class="s">&quot;[integer]&quot;</span><span class="nt">&gt;</span><span class="c">&lt;!--1..1 Confidence of this alignment--&gt;</span>
+    <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;[code]&quot;</span><span class="nt">&gt;</span><span class="c">&lt;!--1..1 Type of alignment [local/global/short-read]--&gt;</span>
+<span class="nt">&lt;/Alignment&gt;</span> 
+</code></pre></div>
+</div>
+
+<p><br></p>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">SHOW EXAMPLE IN:</li>
+    <li class="active"><a href="" data-target="#Alignment_example > div.rdf_xml" data-toggle="tab">XML</a></li>
+    <li class="">      <a href="" data-target="#Alignment_example > div.json_ld" data-toggle="tab">JSON</a></li>
+  </ul>
+</div>
+
+<div class='rdf_xml active'>
+<div class="highlight"><pre><code class="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;Alignment&gt;</span>
+    <span class="nt">&lt;text&gt;</span>
+        <span class="nt">&lt;status</span> <span class="na">value=</span><span class="s">&quot;generated&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1999/xhtml&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;p&gt;</span>Alignment of sequence123(http://genomics.smartplatforms.org/records/456/alignments/123) against sequence234(http://genomics.smartplatforms.org/records/456/alignments/234)<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/text&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Patient&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../patient/456&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;John Doe&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Sequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../sequence/123&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Sequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../sequence/234&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;patient&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Patient&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../patient/456&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/patient&gt;</span>
+    <span class="nt">&lt;query&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Sequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../sequence/123&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/query&gt;</span>
+    <span class="nt">&lt;reference&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Sequence&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../sequence/234&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/reference&gt;</span>
+    <span class="nt">&lt;fileType</span> <span class="na">value=</span><span class="s">&quot;SAM&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;rawFile</span> <span class="na">value=</span><span class="s">&quot;http://genomics.smartplatforms.org/file/alignments/sam/1&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;score</span> <span class="na">value=</span><span class="s">&quot;0.5&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;global&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Alignment&gt;</span>
+</code></pre></div>
+</div>
+
+<div class='json_ld'>
+<div class="highlight"><pre><code class="javascript">    <span class="p">{</span>
+        <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;status&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;generated&quot;</span>
+            <span class="p">}</span>
+        <span class="s2">&quot;div&quot;</span> <span class="o">:</span> <span class="s2">&quot;&lt;div xmlns=&#39;http://www.w3.org/1999/xhtml&#39;&gt;&lt;p&gt;Alignment of sequence123(http://genomics.smartplatforms.org/records/456/alignments/123) against sequence234(http://genomics.smartplatforms.org/records/456/alignments/234)&lt;/p&gt;&lt;/div&gt;&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;contained&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../patient/456&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Patient&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;John Doe&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="p">{</span>
+                <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../sequence/123&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Sequence&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="p">{</span>
+                <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../sequence/234&quot;</span>
+                <span class="p">},</span> 
+                <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Sequence&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;patient&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../patient/456&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Patient&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;reference&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../sequence/234&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Sequence&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>  
+        <span class="s2">&quot;fileType&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;SAM&quot;</span>
+        <span class="p">},</span>  
+        <span class="s2">&quot;score&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;0.5&quot;</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;rawFile&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;http://genomics.smartplatforms.org/file/alignments/sam/1&quot;</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;query&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../sequence/123&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Sequence&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;global&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+</div>
+
+<p></div></p>
+
+<h2 id='UncategorizedData'><code>UncategorizedData</code></h2>
+
+<p><li>An UncategorizedData displays any data that don&#39;t fit into resources defined above as well as data that linked to them; data within an UncategorizedData is either displayed as table or graph. </li><br></p>
+
+<div id='TableFormat_example'>
+<li>Tables in <code>UncategorizedData</code>are described with following format</li><div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">SHOW FORMAT IN:</li>
+    <li class="active"><a href="" data-target="#TableFormat_example > div.rdf_xml" data-toggle="tab">XML</a></li>
+    <li class="">      <a href="" data-target="#TableFormat_example > div.json_ld" data-toggle="tab">JSON</a></li>
+  </ul>
+</div>
+
+<div class='rdf_xml active'>
+<div class="highlight"><pre><code class="xml"><span class="nt">&lt;table&gt;</span>
+    <span class="nt">&lt;column</span> <span class="na">value=</span><span class="s">&#39;[string]&#39;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..* Names of the columns--&gt;</span>
+    <span class="nt">&lt;entry&gt;</span><span class="c">&lt;!--1..* Entry of the table--&gt;</span>
+        <span class="nt">&lt;name</span> <span class="na">value=</span><span class="s">&quot;[string]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--0..1 Name of entry--&gt;</span>
+        <span class="nt">&lt;description</span> <span class="na">value=</span><span class="s">&quot;[string]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--0..1 Description of the function of the entry--&gt;</span>
+        <span class="nt">&lt;content&gt;</span><span class="c">&lt;!--1..* Content corresponds each column--&gt;</span>
+            <span class="nt">&lt;column</span> <span class="na">value=</span><span class="s">&quot;[string]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Column to which this data corresponds--&gt;</span>
+            <span class="nt">&lt;data&gt;</span><span class="c">&lt;!--1..1--&gt;</span>
+                <span class="nt">&lt;isCategorized</span> <span class="na">value=</span><span class="s">&quot;[boolean]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Whether this data belongs to any defined SMART Genomics data model--&gt;</span>
+                <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;[uri]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Llink to the data source--&gt;</span>
+            <span class="nt">&lt;/data&gt;</span>
+        <span class="nt">&lt;/content&gt;</span>
+    <span class="nt">&lt;/entry&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+</code></pre></div>
+</div>
+
+<div class='json_ld'>
+<div class="highlight"><pre><code class="javascript"><span class="p">{</span>
+    <span class="s2">&quot;column&quot;</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;value&quot;</span> <span class="o">:</span> <span class="s2">&quot;column1&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;value&quot;</span> <span class="o">:</span> <span class="s2">&quot;column2&quot;</span><span class="p">},</span>
+        <span class="p">...</span><span class="nx">other</span> <span class="nx">columns</span><span class="p">...</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;entry&quot;</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span> <span class="o">:</span> <span class="s2">&quot;entry1&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;description&quot;</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span> <span class="o">:</span> <span class="s2">&quot;demontstration&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;content&quot;</span> <span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;column&quot;</span> <span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;value&quot;</span> <span class="o">:</span> <span class="s2">&quot;column1&quot;</span>
+                    <span class="p">},</span>
+                    <span class="s2">&quot;isCategorized&quot;</span> <span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;value&quot;</span> <span class="o">:</span> <span class="s2">&quot;true&quot;</span>
+                    <span class="p">},</span>
+                    <span class="s2">&quot;uri&quot;</span> <span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;value&quot;</span> <span class="o">:</span> <span class="s2">&quot;http://genomics.smartplatforms.org/records/123/sequences/1&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="p">...</span><span class="nx">other</span> <span class="nx">columns</span> <span class="nx">within</span> <span class="nx">entry1</span><span class="p">...</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="p">...</span><span class="nx">other</span> <span class="nx">entries</span><span class="p">...</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+
+<p></div></p>
+
+<p><li>Graphs in <code>UncategorizedData</code>are described with following format:</li>
+<div id='GraphFormat_example'></p>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">SHOW FORMAT IN:</li>
+    <li class="active"><a href="" data-target="#TableFormat_example > div.rdf_xml" data-toggle="tab">XML</a></li>
+    <li class="">      <a href="" data-target="#TableFormat_example > div.json_ld" data-toggle="tab">JSON</a></li>
+  </ul>
+</div>
+
+<div class='rdf_xml active'>
+<div class="highlight"><pre><code class="xml"><span class="nt">&lt;graph&gt;</span>
+    <span class="nt">&lt;node</span> <span class="na">id=</span><span class="s">&quot;[string]&quot;</span><span class="nt">&gt;</span><span class="c">&lt;!--1..* Definition for a node--&gt;</span>
+        <span class="nt">&lt;descripton</span> <span class="na">value=</span><span class="s">&quot;[string]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--0..1 Description of the node--&gt;</span>
+        <span class="nt">&lt;content&gt;</span><span class="c">&lt;!--1..1 Content of the node--&gt;</span>
+            <span class="nt">&lt;isCategorized</span> <span class="na">value=</span><span class="s">&quot;[boolean]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Whether this data belongs to any defined SMART Genomics data model--&gt;</span>
+            <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;[uri]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Link to the data source--&gt;</span>
+        <span class="nt">&lt;/content&gt;</span>
+    <span class="nt">&lt;/node&gt;</span>
+    <span class="nt">&lt;vector</span> <span class="na">id=</span><span class="s">&quot;[string]&quot;</span><span class="nt">&gt;</span><span class="c">&lt;!--1..* Vector that describe the relationship between two nodes--&gt;</span>
+        <span class="nt">&lt;description</span> <span class="na">value=</span><span class="s">&quot;[string]&quot;</span><span class="nt">&gt;</span><span class="c">&lt;!--0..1 Description of the relationships between the two nodes--&gt;</span>
+        <span class="nt">&lt;from</span> <span class="na">value=</span><span class="s">&quot;[id]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--ID of the start node--&gt;</span>
+        <span class="nt">&lt;to</span> <span class="na">value=</span><span class="s">&quot;[id]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--ID of the end node--&gt;</span>
+    <span class="nt">&lt;/vetor&gt;</span>
+<span class="nt">&lt;/graph&gt;</span>
+</code></pre></div>
+</div>
+
+<div class='json_ld'>
+<div class="highlight"><pre><code class="javascript"><span class="p">{</span>
+    <span class="s2">&quot;node&quot;</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;_id&quot;</span> <span class="o">:</span> <span class="s2">&quot;node1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span> <span class="o">:</span> <span class="s2">&quot;node for demonstration&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;content&quot;</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;isCategorized&quot;</span> <span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span> <span class="o">:</span> <span class="s2">&quot;false&quot;</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;uri&quot;</span> <span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span> <span class="o">:</span> <span class="s2">&quot;http://genomics.smartplatforms.org/records/123/file/3&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">...</span><span class="nx">other</span> <span class="nx">nodes</span><span class="p">...</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;vector&quot;</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;_id&quot;</span> <span class="o">:</span> <span class="s2">&quot;123&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span> <span class="o">:</span> <span class="s2">&quot;vector for demonstration&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;from&quot;</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span> <span class="o">:</span> <span class="s2">&quot;node1&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;to&quot;</span> <span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span> <span class="o">:</span> <span class="s2">&quot;node2&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">...</span> <span class="nx">other</span> <span class="nx">vectors</span><span class="p">...</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+
+<p></div></p>
+
+<div id='UncategorizedData_example'>
+
+<li>Resource profile of <code>UncategorizedData</code></li>
+
+<div class='profile active'>
+<div class="highlight"><pre><code class="xml"><span class="nt">&lt;UncategorizedData&gt;</span>
+    <span class="nt">&lt;partOf&gt;</span><span class="c">&lt;!--0..* Resource User of this resource--&gt;</span><span class="nt">&lt;/partOf&gt;</span>
+    <span class="nt">&lt;identifier&gt;</span><span class="c">&lt;!--1..1 Identifier ID of this UncategorizedData--&gt;</span><span class="nt">&lt;/identifier&gt;</span>
+    <span class="nt">&lt;patient&gt;</span><span class="c">&lt;!--1..1 Resource(Patient) Owner of the data--&gt;</span><span class="nt">&lt;/patient&gt;</span> 
+    <span class="nt">&lt;structure</span> <span class="na">value=</span><span class="s">&quot;[code]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Structure of the data (table/graph)--&gt;</span>
+    <span class="nt">&lt;subjectType</span> <span class="na">value=</span><span class="s">&quot;[code]&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Type of the subject described by the datad (e.g experiment)--&gt;</span>
+    <span class="nt">&lt;description</span> <span class="na">value=</span><span class="s">&quot;string&quot;</span><span class="nt">/&gt;</span><span class="c">&lt;!--1..1 Description of the subject--&gt;</span>
+    <span class="nt">&lt;content&gt;</span><span class="c">&lt;!--1..1 Content of the data--&gt;</span><span class="nt">&lt;/content&gt;</span>
+<span class="nt">&lt;/UncategorizedData&gt;</span>
+</code></pre></div>
+</div>
+
+<p><br></p>
+
+<p><li>Example <code>UncategorizedData</code></li></p>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">SHOW EXAMPLE IN:</li>
+    <li class="active"><a href="" data-target="#UncategorizedData_example > div.rdf_xml" data-toggle="tab">XML</a></li>
+    <li class="">      <a href="" data-target="#UncategorizedData_example > div.json_ld" data-toggle="tab">JSON</a></li>
+  </ul>
+</div>
+
+<div class='rdf_xml active'>
+<div class="highlight"><pre><code class="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;UncategorizedData&gt;</span>
+    <span class="nt">&lt;text&gt;</span>
+        <span class="nt">&lt;status</span> <span class="na">value=</span><span class="s">&quot;generated&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1999/xhtml&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;p&gt;</span>Data of sequencing results for patient <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/text&gt;</span>
+    <span class="nt">&lt;contained&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Patient&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../patient/456&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;John Doe&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/contained&gt;</span>
+    <span class="nt">&lt;identifier&gt;</span>
+        <span class="nt">&lt;use</span> <span class="na">value=</span><span class="s">&quot;official&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">value=</span><span class="s">&quot;ID for UncategorizedData&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;system</span> <span class="na">value=</span><span class="s">&quot;http://genomics.smartplatformgs.org/terms&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;id</span> <span class="na">value=</span><span class="s">&quot;123&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;period&gt;</span>
+            <span class="nt">&lt;start</span> <span class="na">value=</span><span class="s">&quot;2013-03-16&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/period&gt;</span>
+        <span class="nt">&lt;assigner&gt;</span>
+            <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;SMART Genomics&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/assigner&gt;</span>
+    <span class="nt">&lt;/identifier&gt;</span> 
+    <span class="nt">&lt;patient&gt;</span>
+        <span class="nt">&lt;type</span> <span class="na">value=</span><span class="s">&quot;Patient&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;url</span> <span class="na">value=</span><span class="s">&quot;../patient/456&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;display</span> <span class="na">value=</span><span class="s">&quot;John Doe&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/patient&gt;</span>
+    <span class="nt">&lt;structure</span> <span class="na">value=</span><span class="s">&quot;graph&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;subjectsType</span> <span class="na">value=</span><span class="s">&quot;LabReport&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;description</span> <span class="na">value=</span><span class="s">&quot;Sequencing results&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;content&gt;</span><span class="c">&lt;!--Content of the graph--&gt;</span><span class="nt">&lt;/content&gt;</span>
+<span class="nt">&lt;/UncategorizedData&gt;</span>
+</code></pre></div>
+</div>
+
+<div class='json_ld'>
+<div class="highlight"><pre><code class="javascript">    <span class="p">{</span>
+    <span class="s2">&quot;text&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;status&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;generated&quot;</span>
+            <span class="p">},</span>
+        <span class="s2">&quot;div&quot;</span> <span class="o">:</span> <span class="s2">&quot;&lt;div xmlns=&#39;http://www.w3.org/1999/xhtml&#39;&gt;&lt;p&gt;Data of sequencing results for patient &lt;/p&gt;&lt;/div&gt;&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;contained&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../patient/456&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Patient&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;John Doe&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;patient&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;../patient/456&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Patient&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;John Doe&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;Sequencing results&quot;</span>
+        <span class="p">},</span>  
+        <span class="s2">&quot;identifier&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;use&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;official&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;assigner&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;display&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;SMART Genomics&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;period&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;2013-03-16&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;system&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;http://genomics.smartplatformgs.org/terms&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;ID for UncategorizedData&quot;</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;123&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;structure&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;graph&quot;</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;subjectsType&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;LabReport&quot;</span>
+        <span class="p">}</span>
+    <span class="s2">&quot;content&quot;</span> <span class="o">:</span> <span class="p">{</span>
+            <span class="p">...</span><span class="nx">content</span> <span class="nx">of</span> <span class="nx">the</span> <span class="nx">graph</span><span class="p">...</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+</div>
+
+<p></div></p>
+
+<h1>Utility API Response</h1>
+
+<h2 id='Sequence Info'><code>Sequence Info</code></h2>
+
+<p><li>Utility API response that returns the coordinate for given gene</li></p>
+
+<div id='Sequence_Info_example'>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">Example in JSON</li>
+    <li class="active"><a href="" data-target="#Lab_Result_examples > div.json" data-toggle="tab"></a></li>
+  </ul>
+</div>
+
+<div class='json active'>
+<div class="highlight"><pre><code class="javascript"><span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;GBA&quot;</span>
+    <span class="s2">&quot;coordinate&quot;</span><span class="o">:</span> <span class="s2">&quot;chr1_155204239_155214253&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+
+<p></div></p>
+
+<h2 id='UncategorizedData Info'><code>UncategorizedData Info</code></h2>
+
+<p><li>API response that shows available Uncategorized Infos&#39; descriptions and identifiers</li>
+<div id='UncategorizedData_Info_example'></p>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">Example in JSON:</li>
+    <li class="active"><a href="" data-target="#UncategorizedData_Info_examples > div.json" data-toggle="tab"></a></li>
+  </ul>
+</div>
+
+<div class='json active'>
+<div class="highlight"><pre><code class="javascript"><span class="p">{</span>   
+    <span class="s2">&quot;Identifiers&quot;</span> <span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;description&quot;</span> <span class="o">:</span> <span class="s2">&quot;sequencing results&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;identifier&quot;</span> <span class="o">:</span> <span class="s2">&quot;123&quot;</span>
+        <span class="p">}</span>
+    <span class="p">...</span><span class="nx">Information</span> <span class="nx">about</span> <span class="nx">other</span> <span class="nx">UncategorizedDta</span><span class="p">...</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+
+<h1>CCDA Data Types</h1>
+
+<h2 id='Genetic Test Report'><code>Genetic Test Report</code></h2>
+
+<p><li>A CCDA file is returned; the Results section of the file is filled with data extracted from the patient&#39;s genotypic information, while the other sections are left empty</li></p>
+
+<div class='format_tabs'>
+  <ul class="nav nav-tabs" data-tabs="tabs">
+    <li style="margin-left: 0px;">CCDA Genetic Test Report in XML:</li>
+    <li class="active"><a href="" data-target="#Lab_Result_examples > div.xml" data-toggle="tab"></a></li>
+  </ul>
+</div>
+
+<div class='xml active'>
+<div class="highlight"><pre><code class="xml"><span class="nt">&lt;clinicaldocument</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:hl7-org:v3&quot;</span> <span class="na">xsi:schemalocation=</span><span class="s">&quot;urn:hl7-org:v3 CDA.xsd&quot;</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;typeid</span> <span class="na">root=</span><span class="s">&quot;2.16.840.1.113883.1.3&quot;</span> <span class="na">extension=</span><span class="s">&quot;POCD_HD000040&quot;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!--Other sections of CCDA--&gt;</span>  
+    <span class="c">&lt;!--Results section of CCDA--&gt;</span>
+    <span class="nt">&lt;component&gt;</span>
+            <span class="nt">&lt;section&gt;</span>
+               <span class="nt">&lt;templateId</span>
+                  <span class="na">root=</span><span class="s">&quot;2.16.840.1.113883.10.20.22.2.3.1&quot;</span><span class="nt">/&gt;</span>
+               <span class="nt">&lt;code</span>
+                  <span class="na">code=</span><span class="s">&quot;30954-2&quot;</span>
+                  <span class="na">codeSystem=</span><span class="s">&quot;2.16.840.1.113883.6.1&quot;</span>
+                  <span class="na">codeSystemName=</span><span class="s">&quot;LOINC&quot;</span>
+                  <span class="na">displayName=</span><span class="s">&quot;RESULTS&quot;</span><span class="nt">/&gt;</span>
+               <span class="nt">&lt;title&gt;</span>RESULTS<span class="nt">&lt;/title&gt;</span>
+               <span class="nt">&lt;text&gt;</span>
+                  <span class="nt">&lt;table&gt;</span>
+                     <span class="nt">&lt;tbody&gt;</span>
+                        <span class="nt">&lt;tr&gt;</span>
+                           <span class="nt">&lt;td</span>
+                              <span class="na">colspan=</span><span class="s">&quot;2&quot;</span><span class="nt">&gt;</span>LABORATORY INFORMATION<span class="nt">&lt;/td&gt;</span>
+                        <span class="nt">&lt;/tr&gt;</span>
+                        <span class="nt">&lt;tr&gt;</span>
+                           <span class="nt">&lt;td</span>
+                              <span class="na">colspan=</span><span class="s">&quot;2&quot;</span><span class="nt">&gt;</span>Genetic Test Report<span class="nt">&lt;/td&gt;</span>
+                        <span class="nt">&lt;/tr&gt;</span>
+                        <span class="nt">&lt;tr&gt;</span>
+                           <span class="nt">&lt;td&gt;</span>
+                           <span class="nt">&lt;td&gt;</span>Mutation of G84GG is detected in GBA gene(chr1:155204239~155214653); the mutation has been reported to be associated with Gaucher&#39;s Disease<span class="nt">&lt;/td&gt;</span>
+                        <span class="nt">&lt;/tr&gt;</span>
+                     <span class="nt">&lt;/tbody&gt;</span>
+                  <span class="nt">&lt;/table&gt;</span>
+               <span class="nt">&lt;/text&gt;</span>
+               <span class="nt">&lt;entry</span>
+                  <span class="na">typeCode=</span><span class="s">&quot;DRIV&quot;</span><span class="nt">&gt;</span>
+                  <span class="nt">&lt;organizer</span>
+                     <span class="na">classCode=</span><span class="s">&quot;BATTERY&quot;</span>
+                     <span class="na">moodCode=</span><span class="s">&quot;EVN&quot;</span><span class="nt">&gt;</span>
+                     <span class="nt">&lt;templateId</span>
+                        <span class="na">root=</span><span class="s">&quot;2.16.840.1.113883.10.20.22.4.1&quot;</span><span class="nt">/&gt;</span>
+                     <span class="nt">&lt;id</span>
+                        <span class="na">root=</span><span class="s">&quot;7d5a02b0-67a4-11db-bd13-0800200c9a66&quot;</span><span class="nt">/&gt;</span>
+                     <span class="nt">&lt;code</span> <span class="na">xsi:type=</span><span class="s">&quot;CE&quot;</span>
+                        <span class="na">code=</span><span class="s">&quot;LP28723-2&quot;</span>
+                        <span class="na">displayName=</span><span class="s">&quot;Genotyping&quot;</span>
+                        <span class="na">codeSystem=</span><span class="s">&quot;2.16.840.1.113883.6.96&quot;</span>
+                        <span class="na">codeSystemName=</span><span class="s">&quot;LOINIC&quot;</span><span class="nt">/&gt;</span>
+                     <span class="nt">&lt;statusCode</span>
+                        <span class="na">code=</span><span class="s">&quot;completed&quot;</span><span class="nt">/&gt;</span>
+                     <span class="nt">&lt;component&gt;</span>
+                        <span class="nt">&lt;observation</span>
+                           <span class="na">classCode=</span><span class="s">&quot;OBS&quot;</span>
+                           <span class="na">moodCode=</span><span class="s">&quot;EVN&quot;</span><span class="nt">&gt;</span>
+                           <span class="nt">&lt;templateId</span>
+                              <span class="na">root=</span><span class="s">&quot;2.16.840.1.113883.10.20.22.4.2&quot;</span><span class="nt">/&gt;</span>
+                           <span class="nt">&lt;id</span>
+                              <span class="na">root=</span><span class="s">&quot;107c2dc0-67a5-11db-bd13-0800200c9a66&quot;</span><span class="nt">/&gt;</span>
+                           <span class="nt">&lt;code</span> <span class="na">xsi:type=</span><span class="s">&quot;CE&quot;</span>
+                              <span class="na">code=</span><span class="s">&quot;22073-1&quot;</span>
+                              <span class="na">displayName=</span><span class="s">&quot;Gauchers disease type 1 gene mutation analysis:Presence or Identity:Point in time:Whole blood/Tissue, unspecified:Nominal:Molecular Genetics&quot;</span>
+                              <span class="na">codeSystem=</span><span class="s">&quot;2.16.840.1.113883.6.1&quot;</span>
+                              <span class="na">codeSystemName=</span><span class="s">&quot;LOINC&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;/code&gt;</span>
+                           <span class="nt">&lt;statusCode</span>
+                              <span class="na">code=</span><span class="s">&quot;completed&quot;</span><span class="nt">/&gt;</span>
+                           <span class="nt">&lt;effectiveTime</span>
+                              <span class="na">value=</span><span class="s">&quot;22073-1&quot;</span><span class="nt">/&gt;</span>
+                           <span class="nt">&lt;value</span>
+                              <span class="na">xsi:type=</span><span class="s">&quot;CD&quot;</span>
+                              <span class="na">code=</span><span class="s">&quot;35689-9&quot;</span>
+                  <span class="na">displayName=</span><span class="s">&quot;GBA gene.g.G84GG:Arbitrary:Point in time:Whole blood/Tissue, unspecified:Ordinal:Molecular Genetics&quot;</span>
+                              <span class="na">codesystem=</span><span class="s">&quot;2.16.840.1.113883.6.1&quot;</span>
+                  <span class="na">codsystemName=</span><span class="s">&quot;LOINIC&quot;</span><span class="nt">/&gt;</span>
+                           <span class="nt">&lt;interpretationCode</span>
+                              <span class="na">code=</span><span class="s">&quot;N&quot;</span>
+                              <span class="na">codeSystem=</span><span class="s">&quot;2.16.840.1.113883.5.83&quot;</span><span class="nt">/&gt;</span>
+                           <span class="nt">&lt;methodCode/&gt;</span>
+                           <span class="nt">&lt;targetSiteCode/&gt;</span>
+                           <span class="nt">&lt;author&gt;</span>
+                              <span class="nt">&lt;time/&gt;</span>
+                              <span class="nt">&lt;assignedAuthor&gt;</span>
+                                 <span class="nt">&lt;id</span>
+                                    <span class="na">root=</span><span class="s">&quot;2a620155-9d11-439e-92b3-5d9816ff4de8&quot;</span><span class="nt">/&gt;</span>
+                              <span class="nt">&lt;/assignedAuthor&gt;</span>
+                           <span class="nt">&lt;/author&gt;</span>&gt;
+                        <span class="nt">&lt;/observation&gt;</span>
+                     <span class="nt">&lt;/component&gt;</span> 
+                 <span class="nt">&lt;/organizer&gt;</span>
+               <span class="nt">&lt;/entry&gt;</span>
+            <span class="nt">&lt;/section&gt;</span>
+         <span class="nt">&lt;/component&gt;</span>
+    <span class="c">&lt;!--Other sections of CCDA--&gt;</span>
+<span class="nt">&lt;/clinicaldocument&gt;</span>
+</code></pre></div>
+</div>
+
+<div class="red_box">
+Sequence is intended to be used as base resource for DNASequence, RNASequence, and AminoAcidSequence; direct access is not encouraged.
+</div>
+
+
+    </div>
+  </div>
+</section>
+
+
+      </div>
+
+      <footer>
+        <div>
+          <a href='http://smartplatforms.org'>SMART Platforms</a> &copy; 2012
+        </div>
+      </footer>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/assets/themes/twitter-2.0/js/jquery.min.js"><\/script>')</script>
+    <script src="/assets/themes/twitter-2.0/js/bootstrap_aks.js"></script>
+    
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33617191-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+    <script src="/assets/app.js?v=0.1"></script>
+    <script>Toc.init($("#jekyll-page-content"), $("#toc"));</script>
+  </body>
+</html>
+

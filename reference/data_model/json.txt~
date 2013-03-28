@@ -1,0 +1,539 @@
+
+
+ 
+    "Sequence": {
+        "isMapped": {
+            "value": "true"
+        }, 
+        "sourceTissue": {
+            "text": {
+                "value": "skin of buccal part of mouth"
+            }, 
+            "coding": {
+                "code": {
+                    "value": "Skin_of_buccal_part_of_mouth"
+                }, 
+                "system": {
+                    "value": "http://sig.uw.edu/fma"
+                }
+            }
+        }, 
+        "patient": {
+            "url": {
+                "value": "../patient/123"
+            }, 
+            "type": {
+                "value": "Patient"
+            }, 
+            "display": {
+                "value": "John Doe"
+            }
+        }, 
+        "quality": {
+            "value": "10"
+        }, 
+        "read": {
+            "value": "AGGTCGACG...ATCGG"
+        }, 
+        "text": {
+            "status": {
+                "value": "generated"
+            }
+        }, 
+        "contained": {
+            "url": {
+                "value": "../patient/123"
+            }, 
+            "type": {
+                "value": "Patient"
+            }, 
+            "display": {
+                "value": "John Doe"
+            }
+        }, 
+        "coordinate": {
+            "startPosition": {
+                "value": "150"
+            }, 
+            "endPosition": {
+                "value": "21850"
+            }, 
+            "chromosome": {
+                "value": "11"
+            }
+        }, 
+        "identifier": {
+            "use": {
+                "value": "official"
+            }, 
+            "assigner": {
+                "display": {
+                    "value": "SMART Genomics"
+                }
+            }, 
+            "period": {
+                "start": {
+                    "value": "2013-03-16"
+                }
+            }, 
+            "system": {
+                "value": "http://genomics.smartplatformgs.org/terms"
+            }, 
+            "label": {
+                "value": "ID for sequence"
+            }, 
+            "id": {
+                "value": "213"
+            }
+        }, 
+        "type": {
+            "value": "DNA"
+        }
+    }, 
+    "AminoAcidSequence": {
+        "patient": {
+            "url": {
+                "value": "../patient/123"
+            }, 
+            "type": {
+                "value": "Patient"
+            }
+        }, 
+        "sequence": {
+            "url": {
+                "value": "../sequence/231"
+            }, 
+            "type": {
+                "value": "Sequence"
+            }
+        }, 
+        "text": {
+            "status": {
+                "value": "generated"
+            }
+        }, 
+        "relatedTrait": {
+            "ontology": {
+                "text": {
+                    "value": "Sickle cell-hemoglobin C disease"
+                }, 
+                "coding": {
+                    "code": {
+                        "value": "35434009"
+                    }, 
+                    "system": {
+                        "value": "http://purl.bioportal.org/ontologies/SNOMEDCT"
+                    }
+                }
+            }, 
+            "hasTrait": {
+                "value": "true"
+            }
+        }, 
+        "contained": [
+            {
+                "url": {
+                    "value": "../patient/123"
+                }, 
+                "type": {
+                    "value": "Patient"
+                }, 
+                "display": {
+                    "value": "John Doe"
+                }
+            }, 
+            {
+                "url": {
+                    "value": "../sequence/256"
+                }, 
+                "type": {
+                    "value": "Sequence"
+                }
+            }, 
+            {
+                "url": {
+                    "value": "../gene/chr11_150_23450"
+                }, 
+                "type": {
+                    "value": "Gene"
+                }, 
+                "display": {
+                    "value": "HBB"
+                }
+            }
+        ], 
+        "relatedGene": {
+            "url": {
+                "value": "../gene/478"
+            }, 
+            "type": {
+                "value": "Gene"
+            }, 
+            "display": {
+                "value": "HBB"
+            }
+        }, 
+        "identifier": {
+            "use": {
+                "value": "official"
+            }, 
+            "assigner": {
+                "display": {
+                    "value": "SMART Genomics"
+                }
+            }, 
+            "period": {
+                "start": {
+                    "value": "2013-03-16"
+                }
+            }, 
+            "system": {
+                "value": "http://genomics.smartplatformgs.org/terms"
+            }, 
+            "label": {
+                "value": "Coordinate of transcriped region for the RNATranscript"
+            }, 
+            "id": {
+                "value": "chr11_150_23450"
+            }
+        }
+    }, 
+    "Variant": {
+        "patient": {
+            "url": {
+                "value": "../patient/456"
+            }, 
+            "type": {
+                "value": "Patient"
+            }
+        }, 
+        "genotype": {
+            "startPosition": {
+                "value": "100"
+            }, 
+            "variable": {
+                "value": "G"
+            }, 
+            "sequence": {
+                "url": {
+                    "value": "../DNASequence/chr20:12000-12321"
+                }, 
+                "type": {
+                    "value": "DNASequence"
+                }
+            }
+        }, 
+        "reference": {
+            "startPosition": {
+                "value": "29"
+            }, 
+            "variable": {
+                "value": "A"
+            }, 
+            "sequence": {
+                "url": {
+                    "value": "../DNASequence/chr20:14000-14321"
+                }, 
+                "type": {
+                    "value": "DNASequence"
+                }
+            }
+        }, 
+        "text": {
+            "status": {
+                "value": "generated"
+            }
+        }, 
+        "extraInfo": {
+            "DP": {
+                "value": "56"
+            }
+        }, 
+        "alternatives": {
+            "value": "G T"
+        }, 
+        "contained": [
+            {
+                "url": {
+                    "value": "../patient/456"
+                }, 
+                "type": {
+                    "value": "Patient"
+                }, 
+                "display": {
+                    "value": "John Doe"
+                }
+            }, 
+            {
+                "url": {
+                    "value": "../DNASequence/chr20:14000-14321"
+                }, 
+                "type": {
+                    "value": "DNASequence"
+                }
+            }, 
+            {
+                "url": {
+                    "value": "../DNASequence/chr20:12000-12321"
+                }, 
+                "type": {
+                    "value": "DNASequence"
+                }
+            }
+        ], 
+        "extraInfoList": {
+            "value": "DP"
+        }, 
+        "type": {
+            "value": "SNP"
+        }
+    }, 
+    "DNASequence": {
+        "patient": {
+            "url": {
+                "value": "../patient/123"
+            }, 
+            "type": {
+                "value": "Patient"
+            }
+        }, 
+        "sequence": {
+            "url": {
+                "value": "../sequence/231"
+            }, 
+            "type": {
+                "value": "Sequence"
+            }
+        }, 
+        "text": {
+            "status": {
+                "value": "generated"
+            }
+        }, 
+        "contained": [
+            {
+                "url": {
+                    "value": "../patient/123"
+                }, 
+                "type": {
+                    "value": "Patient"
+                }, 
+                "display": {
+                    "value": "John Doe"
+                }
+            }, 
+            {
+                "url": {
+                    "value": "../sequence/231"
+                }, 
+                "type": {
+                    "value": "Sequence"
+                }
+            }, 
+            {
+                "url": {
+                    "value": "../gene/chr17_124_214357"
+                }, 
+                "type": {
+                    "value": "Gene"
+                }, 
+                "display": {
+                    "value": "BRCA1"
+                }
+            }
+        ], 
+        "relatedGene": {
+            "url": {
+                "value": "../gene/478"
+            }, 
+            "type": {
+                "value": "Gene"
+            }, 
+            "display": {
+                "value": "BRCA1"
+            }
+        }, 
+        "identifier": {
+            "use": {
+                "value": "official"
+            }, 
+            "assigner": {
+                "display": {
+                    "value": "SMART Genomics"
+                }
+            }, 
+            "period": {
+                "start": {
+                    "value": "2013-03-16"
+                }
+            }, 
+            "system": {
+                "value": "http://genomics.smartplatformgs.org/terms"
+            }, 
+            "label": {
+                "value": "Coordinate for DNA sequence"
+            }, 
+            "id": {
+                "value": "chr17_134_214357"
+            }
+        }
+    }, 
+    "Gene": {
+        "patient": {
+            "url": {
+                "value": "../patient/123"
+            }, 
+            "type": {
+                "value": "Patient"
+            }
+        }, 
+        "sequence": {
+            "url": {
+                "value": "../sequence/chr11_150_23450"
+            }, 
+            "type": {
+                "value": "DNASequence"
+            }
+        }, 
+        "text": {
+            "status": {
+                "value": "generated"
+            }
+        }, 
+        "contained": [
+            {
+                "url": {
+                    "value": "../patient/123"
+                }, 
+                "type": {
+                    "value": "Patient"
+                }, 
+                "display": {
+                    "value": "John Doe"
+                }
+            }, 
+            {
+                "url": {
+                    "value": "../sequence/chr11:150~23450"
+                }, 
+                "type": {
+                    "value": "DNASequence"
+                }
+            }
+        ], 
+        "phenotype": {
+            "ontology": {
+                "text": {
+                    "value": "Sickle cell-hemoglobin C disease"
+                }, 
+                "coding": {
+                    "code": {
+                        "value": "35434009"
+                    }, 
+                    "system": {
+                        "value": "http://purl.bioportal.org/ontologies/SNOMEDCT"
+                    }
+                }
+            }, 
+            "hasTrait": {
+                "value": "true"
+            }
+        }, 
+        "identifier": {
+            "use": {
+                "value": "official"
+            }, 
+            "assigner": {
+                "display": {
+                    "value": "SMART Genomics"
+                }
+            }, 
+            "period": {
+                "start": {
+                    "value": "2013-03-16"
+                }
+            }, 
+            "system": {
+                "value": "http://genomics.smartplatformgs.org/terms"
+            }, 
+            "label": {
+                "value": "Coordinate of the gene"
+            }, 
+            "id": {
+                "value": "chr11_150_23450"
+            }
+        }
+    }, 
+    "Alignment": {
+        "patient": {
+            "url": {
+                "value": "../patient/456"
+            }, 
+            "type": {
+                "value": "Patient"
+            }
+        }, 
+        "reference": {
+            "url": {
+                "value": "../sequence/234"
+            }, 
+            "type": {
+                "value": "Sequence"
+            }
+        }, 
+        "text": {
+            "status": {
+                "value": "generated"
+            }
+        }, 
+        "fileType": {
+            "value": "SAM"
+        }, 
+        "contained": [
+            {
+                "url": {
+                    "value": "../patient/456"
+                }, 
+                "type": {
+                    "value": "Patient"
+                }, 
+                "display": {
+                    "value": "John Doe"
+                }
+            }, 
+            {
+                "url": {
+                    "value": "../sequence/123"
+                }, 
+                "type": {
+                    "value": "Sequence"
+                }
+            }, 
+            {
+                "url": {
+                    "value": "../sequence/234"
+                }, 
+                "type": {
+                    "value": "Sequence"
+                }
+            }
+        ], 
+        "score": {
+            "value": "0.5"
+        }, 
+        "rawFile": {
+            "value": "http://genomics.smartplatforms.org/file/alignments/sam/1"
+        }, 
+        "query": {
+            "url": {
+                "value": "../sequence/123"
+            }, 
+            "type": {
+                "value": "Sequence"
+            }
+        }, 
+        "type": {
+            "value": "global"
+        }
+    }
+

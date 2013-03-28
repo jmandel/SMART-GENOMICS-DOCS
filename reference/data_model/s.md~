@@ -1,0 +1,49 @@
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Sequence>
+	<text>
+		<status value="generated"/>
+		<div xmlns="http://www.w3.org/1999/xhtml">
+			<p>DNA Sequence at chr11:150-21850 for patient 123</p>
+		</div>
+	</text>
+	<contained>
+		<type value="Patient"/>
+		<url value="../patient/123"/>
+		<display value="John Doe"/>
+	</contained>
+	<identifier>
+		<use value="official"/>
+		<label value="ID for sequence"/>
+		<system value="http://genomics.smartplatformgs.org/terms"/>
+		<id value="213"/>
+		<period>
+ 			<start value="2013-03-16"/>
+		</period>
+ 		<assigner>
+			<display value="SMART Genomics"/>
+		</assigner>
+	</identifier>
+	<patient>
+		<type value="Patient"/>
+		<url value="../patient/123"/>
+		<display value="John Doe"/>
+	</patient>	
+	<isMapped value="true"/>
+	<type value="DNA"/>
+	<coorinate>
+		<chromosome value="11"/>
+		<startPosition value="150"/>
+		<endPosition value="21850"/>
+	</coordinate>
+	<read value="AGGTCGACG...ATCGG"/>
+	<quality value="10"/>
+	<sourceTissue>
+		<coding>
+			<system value="http://sig.uw.edu/fma"/>
+      			<code value="Skin_of_buccal_part_of_mouth"/>
+    		</coding>
+		<text value="skin of buccal part of mouth"/>
+	</sourceTissue>
+</Sequence>

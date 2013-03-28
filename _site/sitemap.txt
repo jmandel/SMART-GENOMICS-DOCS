@@ -1,0 +1,10 @@
+
+http://dev.smartplatforms.org/pages.html
+http://dev.smartplatforms.org/categories.html
+http://dev.smartplatforms.org/atom.xml
+http://dev.smartplatforms.org/sitemap.txt
+http://dev.smartplatforms.org/archive.html
+http://dev.smartplatforms.org/reference/data_model/index.html
+http://dev.smartplatforms.org/reference/rest_api/index.html
+http://dev.smartplatforms.org/tags.html
+http://dev.smartplatforms.org/index.html

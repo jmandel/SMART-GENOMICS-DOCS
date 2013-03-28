@@ -1,0 +1,40 @@
+import xml.etree.ElementTree as et
+import json
+f = open("s.xml")
+tree = et.parse(f)
+root = tree.getroot()
+t = 'drt.xml'
+d = et.parse(t)
+rt = d.getroot()
+warning = 0
+def to_dct(element):
+	dct = {}
+	if element.tag.strip() == 'div':
+		warning = 1
+	if len(element.attrib) != 0:
+		if element.tag != 'div':
+			dct = element.attrib
+	else:
+		for child in element:
+			childDct = to_dct(child)
+			if childDct.keys():
+				putInDct(dct, child.tag, childDct)
+	return dct
+
+def putInDct(dct, key, value):
+	if key in dct.keys():
+		dctValue = dct.pop(key)
+		lst = []
+		if type(dctValue) == list:
+			lst = (dctValue)
+		else:
+			lst.append(dctValue)
+		lst.append(value)
+		dct[key] = lst
+	else:
+		dct[key] = value
+	
+op = open('json.txt', 'w')
+write(json.dumps(to_dct(root), indent = 4),op)
+
+print 'warning', warning
